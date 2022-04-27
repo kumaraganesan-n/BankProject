@@ -1,16 +1,15 @@
 package bank.online.ZealousBank;
-
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
 @Entity
-public class Transaction {
+public class Transaction 
+{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String type;
@@ -18,7 +17,22 @@ public class Transaction {
 	private double amount;
 	@ManyToOne
 	private Account account;
-
+	public Transaction() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Transaction(String type, Date dot, double amount, Account account) {
+		super();
+		this.type = type;
+		this.dot = dot;
+		this.amount = amount;
+		this.account = account;
+	}
+	@Override
+	public String toString() {
+		return "Transaction [id=" + id + ", type=" + type + ", dot=" + dot + ", amount=" + amount + ", account="
+				+ account + "]";
+	}
 	public long getId() {
 		return id;
 	}
@@ -49,22 +63,4 @@ public class Transaction {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-	@Override
-	public String toString() {
-		return "Transaction [id=" + id + ", type=" + type + ", dot=" + dot + ", amount=" + amount + ", account="
-				+ account + "]";
-	}
-	public Transaction(String type, Date dot, double amount, Account account) {
-		super();
-		this.type = type;
-		this.dot = dot;
-		this.amount = amount;
-		this.account = account;
-	}
-	public Transaction() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-
 }

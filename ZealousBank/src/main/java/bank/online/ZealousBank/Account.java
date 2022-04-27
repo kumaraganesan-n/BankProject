@@ -1,5 +1,4 @@
 package bank.online.ZealousBank;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -12,23 +11,46 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.CollectionId;
 import org.springframework.lang.Nullable;
 
 @Entity
-public class Account {
+public class Account 
+{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long accountNumber;
 	private String accountHolder;
 	private double accountBalance;
 	private long contact;
+	private String password;
 	private String email;
 	@Column(unique = true)
 	private long customerId;
-	@Nullable 
+	@Nullable
 	@OneToMany
-	@JoinTable(name ="EveryRecord",joinColumns =@JoinColumn(name="AccountNo"),inverseJoinColumns = @JoinColumn(name="TransactonsId"))
-	private Collection<Transaction> mytrans= new ArrayList<Transaction>();
+	@JoinTable(name = "EveryRecord",joinColumns = @JoinColumn(name="AccountNo"),inverseJoinColumns = @JoinColumn(name="TransactionId"))
+	private Collection<Transaction> mytrans=new ArrayList<Transaction>();
+	public Account() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Account(String accountHolder, double accountBalance, long contact, String password, String email,
+			long customerId, Collection<Transaction> mytrans) {
+		super();
+		this.accountHolder = accountHolder;
+		this.accountBalance = accountBalance;
+		this.contact = contact;
+		this.password = password;
+		this.email = email;
+		this.customerId = customerId;
+		this.mytrans = mytrans;
+	}
+
+	@Override
+	public String toString() {
+		return "Account [accountNumber=" + accountNumber + ", accountHolder=" + accountHolder + ", accountBalance="
+				+ accountBalance + ", contact=" + contact + ", email=" + email + ", customerId=" + customerId
+				+ ", mytrans=" + mytrans + "]";
+	}
 	public long getAccountNumber() {
 		return accountNumber;
 	}
@@ -65,23 +87,16 @@ public class Account {
 	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
-	@Override
-	public String toString() {
-		return "Account [accountNumber=" + accountNumber + ", accountHolder=" + accountHolder + ", accountBalance="
-				+ accountBalance + ", contact=" + contact + ", email=" + email + ", customerId=" + customerId + "]";
+	public Collection<Transaction> getMytrans() {
+		return mytrans;
 	}
-	public Account(String accountHolder, double accountBalance, long contact, String email, long customerId) {
-		super();
-		this.accountHolder = accountHolder;
-		this.accountBalance = accountBalance;
-		this.contact = contact;
-		this.email = email;
-		this.customerId = customerId;
+	public void setMytrans(Collection<Transaction> mytrans) {
+		this.mytrans = mytrans;
 	}
-	public Account() {
-		super();
-		// TODO Auto-generated constructor stub
-	} 
-	
-
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
